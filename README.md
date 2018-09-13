@@ -7,19 +7,28 @@ Cookie integration for dot-store.
 ## Install
 
 ```bash
-npm install --save dot-store-cookie
+npm install --save dot-event dot-store dot-store-cookie
 ```
 
 ## Create store
 
 ```js
-import composeStore from "dot-store-cookie"
-const store = composeStore()
+import Events from "dot-event"
+import composeStore from "dot-store"
+import composeCookie from "dot-store-cookie"
+
+const store = composeCookie(composeStore(new Events())
 ```
 
-## Use store
+## Set cookie
 
 ```js
-await store.update("cookies.hello", "world")
-store.fetch("cookies.hello") // world
+await store.cookie("hello", "world") // world
+```
+
+## Read cookie
+
+```js
+await store.cookie("hello") // world
+store.get("hello") // world (cached)
 ```

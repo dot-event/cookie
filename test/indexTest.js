@@ -1,5 +1,6 @@
-import Store from "dot-store"
-import composeStore from "../dist/cookie"
+import Events from "dot-event"
+import composeStore from "dot-store"
+import composeCookie from "../dist/cookie"
 
 describe("empty cookie", () => {
   beforeEach(() => {
@@ -9,22 +10,20 @@ describe("empty cookie", () => {
     global.document = document
   })
 
-  test("fetch empty", async () => {
-    const store = composeStore(new Store())
-    expect(await store.fetch("cookies.hello")).toBe(
-      undefined
-    )
+  test("empty", async () => {
+    const store = composeCookie(composeStore(new Events()))
+    expect(await store.cookie("hello")).toBe(undefined)
   })
 
   test("update", async () => {
-    const store = composeStore(new Store())
-    await store.update("cookies.hello", "world")
+    const store = composeCookie(composeStore(new Events()))
+    await store.cookie("hello", "world")
     expect(document.cookie).toBe("hello=world")
-    expect(store.get("cookies.hello")).toBe("world")
+    expect(store.get("hello")).toBe("world")
   })
 })
 
-describe("exiting cookie", () => {
+describe("existing cookie", () => {
   beforeEach(() => {
     const document = {
       cookie: "hello=world",
@@ -32,15 +31,46 @@ describe("exiting cookie", () => {
     global.document = document
   })
 
-  test("fetch", async () => {
-    const store = composeStore(new Store())
-    expect(await store.fetch("cookies.hello")).toBe("world")
+  test("read", async () => {
+    const store = composeCookie(composeStore(new Events()))
+    expect(await store.cookie("hello")).toBe("world")
   })
 
   test("update", async () => {
-    const store = composeStore(new Store())
-    await store.update("cookies.hello", "world2")
-    expect(document.cookie).toBe("hello=world2")
-    expect(store.get("cookies.hello")).toBe("world2")
+    const store = composeCookie(composeStore(new Events()))
+    await store.cookie("hello", "world")
+    expect(document.cookie).toBe("hello=world")
+    expect(store.get("hello")).toBe("world")
+  })
+})
+
+describe("empty object cookie", () => {
+  beforeEach(() => {
+    const document = {
+      cookie: "",
+    }
+    global.document = document
+  })
+
+  test("update", async () => {
+    const store = composeCookie(composeStore(new Events()))
+    await store.cookie("hello", { world: true })
+    expect(document.cookie).toBe("hello={%22world%22:true}")
+    expect(store.get("hello")).toEqual({ world: true })
+  })
+})
+
+describe("existing object cookie", () => {
+  beforeEach(() => {
+    const document = {
+      cookie: "hello={%22world%22:true}",
+    }
+    global.document = document
+  })
+
+  test("read", async () => {
+    const store = composeCookie(composeStore(new Events()))
+    await store.cookie("hello")
+    expect(store.get("hello")).toEqual({ world: true })
   })
 })

@@ -38,7 +38,8 @@
     "@babel/preset-env": "7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.6",
-    "dot-store": "^4.0.0",
+    "dot-event": "^0.5.0",
+    "dot-store": "^4.1.0",
     "eslint": "^5.2.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.2",
@@ -58,6 +59,10 @@
     "lint": "eslint --ignore-path .gitignore --ext=js .",
     "pretty": "prettier --write **/*.css **/*.json **/*.md",
     "test": "jest"
+  },
+  "links": {
+    "dot-event": "../dot-event",
+    "dot-store": "../dot-store-core"
   },
   "babel": {
     "presets": [
