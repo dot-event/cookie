@@ -1,4 +1,3 @@
-import Events from "dot-event"
 import composeStore from "dot-store"
 import composeCookie from "../dist/cookie"
 
@@ -11,12 +10,12 @@ describe("empty cookie", () => {
   })
 
   test("empty", async () => {
-    const store = composeCookie(composeStore(new Events()))
+    const store = composeCookie(composeStore())
     expect(await store.cookie("hello")).toBe(undefined)
   })
 
   test("update", async () => {
-    const store = composeCookie(composeStore(new Events()))
+    const store = composeCookie(composeStore())
     await store.cookie("hello", "world")
     expect(document.cookie).toBe("hello=world")
     expect(store.get("hello")).toBe("world")
@@ -32,12 +31,12 @@ describe("existing cookie", () => {
   })
 
   test("read", async () => {
-    const store = composeCookie(composeStore(new Events()))
+    const store = composeCookie(composeStore())
     expect(await store.cookie("hello")).toBe("world")
   })
 
   test("update", async () => {
-    const store = composeCookie(composeStore(new Events()))
+    const store = composeCookie(composeStore())
     await store.cookie("hello", "world")
     expect(document.cookie).toBe("hello=world")
     expect(store.get("hello")).toBe("world")
@@ -53,7 +52,7 @@ describe("empty object cookie", () => {
   })
 
   test("update", async () => {
-    const store = composeCookie(composeStore(new Events()))
+    const store = composeCookie(composeStore())
     await store.cookie("hello", { world: true })
     expect(document.cookie).toBe("hello={%22world%22:true}")
     expect(store.get("hello")).toEqual({ world: true })
@@ -69,7 +68,7 @@ describe("existing object cookie", () => {
   })
 
   test("read", async () => {
-    const store = composeCookie(composeStore(new Events()))
+    const store = composeCookie(composeStore())
     await store.cookie("hello")
     expect(store.get("hello")).toEqual({ world: true })
   })

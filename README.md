@@ -13,11 +13,10 @@ npm install --save dot-event dot-store dot-store-cookie
 ## Create store
 
 ```js
-import Events from "dot-event"
 import composeStore from "dot-store"
 import composeCookie from "dot-store-cookie"
 
-const store = composeCookie(composeStore(new Events())
+const store = composeCookie(composeStore()
 ```
 
 ## Set cookie
