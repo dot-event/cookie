@@ -7,7 +7,7 @@ Cookie integration for dot-store.
 ## Install
 
 ```bash
-npm install --save dot-event dot-store dot-store-cookie
+npm install --save dot-store dot-store-cookie
 ```
 
 ## Create store
