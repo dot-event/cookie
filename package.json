@@ -12,7 +12,7 @@
     "jest-scripts",
     "watchman-babel"
   ],
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Cookie integration for dot-store",
   "keywords": [
     "dot-store",
